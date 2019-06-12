@@ -3,10 +3,14 @@
 
 main :: IO ()
 main = do
-    putStrLn "Queens use 10 for example."
+    --putStrLn "Queens use 10 for example."
     line <- getLine
-    let nq = readInt line
-    print $ nsoln nq
+    if line == ""
+     then return ()
+     else do
+        let nq = readInt line
+        print $ nsoln nq
+        main
 
 nsoln :: Int -> Int
 nsoln nq = length (gen nq)

@@ -14,7 +14,11 @@ primes = map head (iterate the_filter (iterate suCC 2))
 
 main :: IO ()
 main = do
-    putStrLn "Primes use 1500 for example."
+    --putStrLn "Primes use 1500 for example."
     line <- getLine
-    let n = readInt line
-    print $ primes !! n
+    if line == ""
+     then return ()
+     else do
+        let n = 100 * readInt line
+        print $ primes !! n
+        main

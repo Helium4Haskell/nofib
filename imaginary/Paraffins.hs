@@ -38,9 +38,9 @@ rads_of_size_n :: Array Int [Radical] -> Int -> [Radical]
 rads_of_size_n radicals n =
   [ (C ri rj rk)
   | (i,j,k)  <- (three_partitions (n-1)),
-    (ri:ris) <- (remainders (radicals!i)),
-    (rj:rjs) <- (remainders (if (i==j) then (ri:ris) else radicals!j)),
-    rk       <- (if (j==k) then (rj:rjs) else radicals!k)]
+    (ri:ris) <- (remainders (radicals ! i)),
+    (rj:rjs) <- (remainders (if (i==j) then (ri:ris) else radicals ! j)),
+    rk       <- (if (j==k) then (rj:rjs) else radicals ! k)]
 
 -- Generation of paraffins.
 
@@ -50,7 +50,7 @@ bcp_generator :: Array Int [Radical] -> Int -> [Paraffin]
 bcp_generator radicals n =
   if (odd n) then []
   else
-    [ (BCP r1 r2) | (r1:r1s) <- (remainders (radicals!(div n 2))),
+    [ (BCP r1 r2) | (r1:r1s) <- (remainders (radicals ! (div n 2))),
                     r2       <- (r1:r1s) ]
 
 four_partitions :: Int -> [(Int,Int,Int,Int)]
@@ -65,10 +65,10 @@ ccp_generator :: Array Int [Radical] -> Int -> [Paraffin]
 ccp_generator radicals n =
   [ (CCP ri rj rk rl)
   | (i,j,k,l) <- (four_partitions (n-1)),
-    (ri:ris)  <- (remainders (radicals!i)),
-    (rj:rjs)  <- (remainders (if (i==j) then (ri:ris) else radicals!j)),
-    (rk:rks)  <- (remainders (if (j==k) then (rj:rjs) else radicals!k)),
-    rl        <- (if (k==l) then (rk:rks) else radicals!l)]
+    (ri:ris)  <- (remainders (radicals ! i)),
+    (rj:rjs)  <- (remainders (if (i==j) then (ri:ris) else radicals ! j)),
+    (rk:rks)  <- (remainders (if (j==k) then (rj:rjs) else radicals ! k)),
+    rl        <- (if (k==l) then (rk:rks) else radicals ! l)]
 
 bcp_until :: Int -> [Int]
 bcp_until n =
@@ -91,10 +91,21 @@ paraffins_until n =
 
 main :: IO ()
 main = do
-  putStrLn "Paraffins use 16 for example."
+  --putStrLn "Paraffins use 14 for example."
+  --running '15' twice or '16' once run into a Segmentation fault
   line <- getLine
-  let num = readInt line
-  print [length (rads!i) | rads <- [(radical_generator num)], i <- [0..num]]
+  if line == ""
+    then return ()
+    else do
+      let num = readInt line
+      print $ length
+          (show [length (rads ! i) | rads <- [(radical_generator num)], i <- [0..num]]
+          ++ show (bcp_until num)
+          ++ show (ccp_until num)
+          ++ show (paraffins_until num))
+      main
+
+  {-print [length (rads!i) | rads <- [(radical_generator num)], i <- [0..num]]
   print (bcp_until num)
   print (ccp_until num)
-  print (paraffins_until num)
+  print (paraffins_until num)-}

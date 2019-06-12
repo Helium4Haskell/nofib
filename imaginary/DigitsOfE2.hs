@@ -22,7 +22,11 @@ e = ("2."++) $
 
 main :: IO ()
 main = do
-    putStrLn "DigitsOfE2 use 10 for example."
+    --putStrLn "DigitsOfE2 use 10 for example."
     line <- getLine
-    let n = readInt line
-    print (take n e)
+    if line == ""
+     then return ()
+     else do
+        let n = readInt line
+        print (take n e)
+        main

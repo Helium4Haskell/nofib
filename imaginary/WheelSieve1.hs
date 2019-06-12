@@ -37,7 +37,11 @@ nextSize (Wheel s ns) p =
 
 main :: IO ()
 main = do
-  putStrLn "WheelSieve1 use 5000 for example."
+  --putStrLn "WheelSieve1 use 5000 for example."
   line <- getLine
-  let n = readInt line
-  print (primes!!n)
+  if line == ""
+    then return ()
+    else do
+      let n = readInt line
+      print (primes !! n)
+      main

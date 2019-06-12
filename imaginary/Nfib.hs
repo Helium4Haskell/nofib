@@ -3,11 +3,15 @@
 
 main :: IO ()
 main = do
-    putStrLn "Nfib use 25 for example."
+    --putStrLn "Nfib use 25 for example."
     line <- getLine
-    let n = intToFloat $ readInt line
-    print $ nfib n
+    if line == ""
+     then return ()
+     else do
+        let n = readInt line
+        print $ nfib n
+        main
 
-nfib :: Float -> Float
-nfib n = if n <= 1.0 then 1.0 else nfib (n-1.0) + nfib (n-2.0) + 1.0
+nfib :: Int -> Int
+nfib n = if n <= 1 then 1 else nfib (n-1) + nfib (n-2) + 1
 

@@ -29,10 +29,14 @@ import Complex
 
 main :: IO ()
 main = do
-    putStrLn "X2n1 use 5000 for example."
+    --putStrLn "X2n1 use 5000 for example."
     line <- getLine
-    let argn = readInt line
-    print (round (realPart (sumComplex [f n | n <- [1 .. argn]])))
+    if line == ""
+     then return ()
+     else do
+        let argn = 1000 * readInt line
+        print (round (realPart (sumComplex [f n | n <- [1 .. argn]])))
+        main
 
 f :: Int -> Complex
 f n = mkPolar 1.0 (((2.0*pi)/intToFloat n) ^ n)

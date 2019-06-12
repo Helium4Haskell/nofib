@@ -47,10 +47,14 @@ x ^^^ S y = x |*| (x ^^^ y)
 
 main :: IO ()
 main = do
-  putStrLn "Exp3_8 use 8 for example."
+  --putStrLn "Exp3_8 use 8 for example."
   line <- getLine
-  let power = readInt line
-  print $ toInt ((toNat 3) ^^^ (toNat power))
+  if line == ""
+   then return ()
+   else do
+      let power = readInt line
+      print $ toInt ((toNat 3) ^^^ (toNat power))
+      main
 
 --
 -- Timing for hbc version 0.997.2

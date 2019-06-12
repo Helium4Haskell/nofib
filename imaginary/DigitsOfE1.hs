@@ -20,7 +20,11 @@ e = toDigits eContFrac
 
 main :: IO ()
 main = do
-    putStrLn "DigitsOfE1 use 10 for example."
+    --putStrLn "DigitsOfE1 use 10 for example."
     line <- getLine
-    let n = readInt line
-    print (take n e)
+    if line == ""
+     then return ()
+     else do
+        let n = readInt line
+        print (take n e)
+        main

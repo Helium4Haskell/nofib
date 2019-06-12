@@ -46,7 +46,11 @@ etotal n = sum (take n es)
 -- The (analytical) result should be zero
 main :: IO ()
 main = do
-  putStrLn "Integrate use 5000 for example."
+  --putStrLn "Integrate use 5000 for example."
   line <- getLine
-  let range = readInt line
-  putStrLn $ show $ etotal range
+  if line == ""
+    then return ()
+    else do
+      let range = readInt line
+      print $ etotal range
+      main

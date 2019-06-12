@@ -31,13 +31,20 @@ bernoulli n
     | otherwise = plusRatio (ratio (-1) 2) (sumRatio
         [ ratio ((sum $ zipWith (*) powers' (tail $ tail combs)) - k) (k+1)
         | (k,combs) <- zip [2..n] pascal])
-    where powers' = (neg_powers!!(n-1))
+    where powers' = (neg_powers !! (n-1))
 
 main :: IO ()
 main = do
-    putStrLn "Bernoulli use 15 as max."
+    {-putStrLn "Bernoulli use 15 as max."
     line <- getLine
     let n = readInt line
-    putStrLn $ "Bernoulli " ++ (show n) ++ " : " ++ show (bernoulli n)
+    putStrLn $ "Bernoulli " ++ (show n) ++ " : " ++ show (bernoulli n)-}
     --putStrLn $ "Bernoulli table until: " ++ (show n)
     --putStr $ unlines $ map (\x -> show x ++ " : " ++ show (bernoulli x)) [0..n]
+    line <- getLine
+    if line == ""
+     then return ()
+     else do
+        let n = readInt line
+        print $ bernoulli n
+        main
